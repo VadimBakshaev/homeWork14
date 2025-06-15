@@ -1,16 +1,12 @@
 // 1. Создаем обработчик события полной загрузки страницы
 window.onload = () => {
-    // 2. Запрещаем вводить цифры в поле Full Name
-    document.getElementsByName('fullName')[0].addEventListener('keypress', (event) => {
-        if (/^\d$/.test(event.key)) {
-            event.preventDefault();
-        }
+    // 2. Запрещаем вводить все кроме букв и пробела в поле Full Name
+    document.getElementsByName('fullName')[0].addEventListener('input', function () {
+        this.value = this.value.replace(/[^a-zа-яё\s]/gi, '');
     });
-    // 3. Запрещаем вводить точки и запятые в поле User Name
-    document.getElementsByName('userName')[0].addEventListener('keypress', (event) => {
-        if (/^[\.\,]/.test(event.key)) {
-            event.preventDefault();
-        }
+    // 3. Поле User Name может содержать только буквы, цифры, символ подчеркивания и тире
+    document.getElementsByName('userName')[0].addEventListener('input', function () {
+        this.value = this.value.replace(/[^a-zа-яё\-_\d]/gi, '');
     });
     // 4. Выводим сообщение в консоль об изменении состояния чекбокса
     const checkboxEl = document.getElementById('checkAgreed');
@@ -24,7 +20,7 @@ window.onload = () => {
 
     // 5. Обработка нажатия кнопки Sign Up
     const popup = document.querySelector('.popup');
-    document.getElementsByClassName('form-button')[0].onclick = (event) => {
+    document.querySelector('.form-button').onclick = (event) => {
         const inputEl = document.querySelectorAll('.form-input');
         for (let i = 0; i < inputEl.length; i++) {
             // Проверка полей на пустое значение
@@ -73,7 +69,7 @@ window.onload = () => {
     };
 
     // 6. Переход на Log In   
-    
+
     // функция удаления и изменения элементов согласно ТЗ
     function transitionToLogIn() {
         document.getElementsByClassName('main-form-title')[0].textContent = 'Log in to the system';
@@ -83,7 +79,7 @@ window.onload = () => {
         checkboxEl.parentElement.remove();
         document.getElementsByClassName('form-question-link')[0].remove();
         document.getElementsByClassName('form-button')[0].textContent = 'Sign In';
-        
+
         // Замена обработчика клика на кнопке формы
         document.getElementsByClassName('form-button')[0].onclick = (event) => {
             const inputEl = document.querySelectorAll('.form-input');
