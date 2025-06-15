@@ -1,0 +1,163 @@
+@font-face {
+    font-family: NunitoExtrabold;
+    src: url('../fonts/Nunitoextrabold.woff');
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Nunito;
+    src: url('../fonts/Nunitobold.woff');
+    font-weight: 700;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Nunito, sans-serif;
+    position: relative;
+}
+
+.main-logo {
+    position: absolute;
+    top: 27px;
+    left: calc(50% - 136px);
+    font-family: NunitoExtrabold, sans-serif;
+    font-size: 36px;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+.main-logo span {
+    font-size: 48px;
+    color: rgb(215, 47, 63);
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.main-image {
+    width: 50%;
+    min-height: 100vh;
+    align-content: center;
+    background-color: rgb(248, 248, 250);
+}
+
+.main-form {
+    width: 50%;
+    justify-items: end;
+    padding-right: 85px;
+    box-sizing: border-box;
+    margin: 194px 0 191px;
+}
+
+.main-form-title {
+    font-size: 36px;
+    color: #000000;
+    margin-right: 95px;
+}
+
+.main-form-text {
+    max-width: 452px;
+    font-size: 22px;
+    line-height: 27px;
+    color: #636363;
+    margin: 20px 0 42px;
+}
+
+.form {
+    width: 452px;
+}
+
+.form-label-input {
+    font-size: 16px;
+    color: #C6C6C4;
+}
+
+.form-input {
+    width: 100%;
+    font-size: 20px;
+    color: #323232;
+    outline: none;
+    border: 0;
+    border-bottom: 1px solid #C6C6C4;
+    margin-bottom: 20px;
+    margin-top: 14px;
+}
+
+.form-label-checkbox {
+    font-size: 16px;
+    color: #636363;
+}
+
+.form-checkbox {
+    margin-right: 10px;
+    margin-top: 30px;
+}
+
+.btn {
+    display: block;
+    margin: 0 auto;
+    outline: none;
+    border: 0;
+    background: #DD3142;
+    border-radius: 40px;
+    font-size: 20px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.form-button {
+    width: 210px;
+    height: 70px;
+    margin-top: 40px;
+    margin-bottom: 44px;
+}
+
+.form-question-link {
+    text-decoration: none;
+    font-size: 16px;
+    color: #636363;
+    margin-left: 130px;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0000002f;
+    align-content: center;
+}
+
+.popup-box {
+    width: 300px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.popup-text {
+    font-size: 22px;
+    line-height: 27px;
+    color: #636363;
+}
+
+.popup-button {
+    width: 180px;
+    height: 50px;
+    margin-top: 30px;
+}
+
+.open {
+    display: block;
+}
