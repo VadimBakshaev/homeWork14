@@ -1,26 +1,85 @@
 // 1. Создаем обработчик события полной загрузки страницы
 window.onload = () => {
+    const nameEl = document.getElementsByName('fullName')[0];
+    const userNameEl = document.getElementsByName('userName')[0];
+    const checkboxEl = document.getElementById('checkAgreed');
+    const emailEl = document.getElementsByName('eMail')[0];
+    const passwordEl = document.getElementsByName('password')[0];
+    const repPasswordEl = document.getElementsByName('repeatPassword')[0];
+    const formBtn = document.querySelector('.form-button');
+    const questionLinkEl = document.querySelector('.form-question-link');
+
     // 2. Запрещаем вводить все кроме букв и пробела в поле Full Name
-    document.getElementsByName('fullName')[0].addEventListener('input', function () {
+    nameEl.addEventListener('input', function () {
         this.value = this.value.replace(/[^a-zа-яё\s]/gi, '');
+        if (!this.value) {
+            showError(this, 'Введите имя и фамилию');
+        } else {
+            removeError(this);
+        };
     });
     // 3. Поле User Name может содержать только буквы, цифры, символ подчеркивания и тире
-    document.getElementsByName('userName')[0].addEventListener('input', function () {
+    userNameEl.addEventListener('input', function () {
         this.value = this.value.replace(/[^a-zа-яё\-_\d]/gi, '');
+        if (!this.value) {
+            showError(this, 'Введите имя пользователя');
+        } else {
+            removeError(this);
+        };
     });
     // 4. Выводим сообщение в консоль об изменении состояния чекбокса
-    const checkboxEl = document.getElementById('checkAgreed');
-    checkboxEl.onchange = function () {
-        if (this.checked) {
-            console.log('Согласен');
-        } else {
-            console.log('Не согласен');
+    emailEl.addEventListener('input', isEmailValid);
+    function isEmailValid() {
+        if (this.value &&
+            this.value.match(/[a-zа-яё\d\-\._]+@[a-zа-яё\d\-\._]+\.[a-zа-я]{2,3}/gi)) {
+            removeError(this);
+            return;
         };
+        showError(this, 'Введиет e-mail в формате email@mail.com');
     };
+
+    passwordEl.addEventListener('input', function () {
+        repPasswordEl.dispatchEvent(new Event('input'));
+        if (this.value.length < 8) {
+            showError(this, 'Пароль должен быть не менее 8 символов');
+        } else if (!this.value.match(/[A-Z]/)) {
+            removeError(this);
+            showError(this, 'Должна быть хотя бы одна буква в верхнем регистре');
+        } else if (!this.value.match(/[0-9]/)) {
+            removeError(this);
+            showError(this, 'Должна быть хотя бы одна цифра');
+        } else if (!this.value.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/)) {
+            removeError(this);
+            showError(this, 'Должен быть хотя бы один спецсимвол !@#$%^&* и т. д.');
+        } else {
+            removeError(this);
+        };
+    });
+
+    repPasswordEl.addEventListener('input', function () {
+        if (this.value === passwordEl.value) {
+            removeError(this);
+        } else {
+            showError(this, 'Поторите пароль');
+        };
+    });
+
+    function showError(el, text) {
+        if (el.classList.contains('error')) return;
+        el.classList.add('error');
+        el.insertAdjacentHTML('afterend', `<p class="error-message">${text}</p>`);
+    };
+    function removeError(el) {
+        if (el.classList.contains('error')) {
+            el.nextElementSibling.remove();
+            el.classList.remove('error');
+        };
+    }
 
     // 5. Обработка нажатия кнопки Sign Up
     const popup = document.querySelector('.popup');
-    document.querySelector('.form-button').onclick = (event) => {
+
+    formBtn.onclick = (event) => {
         const inputEl = document.querySelectorAll('.form-input');
         for (let i = 0; i < inputEl.length; i++) {
             // Проверка полей на пустое значение
@@ -73,15 +132,15 @@ window.onload = () => {
     // функция удаления и изменения элементов согласно ТЗ
     function transitionToLogIn() {
         document.getElementsByClassName('main-form-title')[0].textContent = 'Log in to the system';
-        document.getElementsByName('fullName')[0].parentElement.remove();
-        document.getElementsByName('eMail')[0].parentElement.remove();
-        document.getElementsByName('repeatPassword')[0].parentElement.remove();
+        nameEl.parentElement.remove();
+        emailEl.parentElement.remove();
+        repPasswordEl.parentElement.remove();
         checkboxEl.parentElement.remove();
-        document.getElementsByClassName('form-question-link')[0].remove();
-        document.getElementsByClassName('form-button')[0].textContent = 'Sign In';
+        questionLinkEl.remove();
+        formBtn.textContent = 'Sign In';
 
         // Замена обработчика клика на кнопке формы
-        document.getElementsByClassName('form-button')[0].onclick = (event) => {
+        formBtn.onclick = (event) => {
             const inputEl = document.querySelectorAll('.form-input');
             for (let i = 0; i < inputEl.length; i++) {
                 // Проверка полей на пустые значения
@@ -102,7 +161,7 @@ window.onload = () => {
         }
     };
     // Вешаем функцию как обработчик клика на попап и ссылку в форме
-    document.getElementsByClassName('form-question-link')[0].onclick = transitionToLogIn;
+    questionLinkEl.onclick = transitionToLogIn;
     document.getElementsByClassName('popup-button')[0].onclick = () => {
         popup.classList.remove('open');
         transitionToLogIn();

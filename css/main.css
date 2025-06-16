@@ -77,6 +77,8 @@ body {
 .form-label-input {
     font-size: 16px;
     color: #C6C6C4;
+    display: block;
+    margin-bottom: 20px;
 }
 
 .form-input {
@@ -85,11 +87,14 @@ body {
     color: #323232;
     outline: none;
     border: 0;
-    border-bottom: 1px solid #C6C6C4;
-    margin-bottom: 20px;
+    border-bottom: 1px solid #C6C6C4;    
     margin-top: 14px;
 }
 
+.error-message{
+    font-size: 14px;
+    color: red;    
+}
 .form-label-checkbox {
     font-size: 16px;
     color: #636363;
@@ -160,4 +165,7 @@ body {
 
 .open {
     display: block;
+}
+.error{
+    border-color: red;
 }
